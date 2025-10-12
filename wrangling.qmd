@@ -1,0 +1,109 @@
+---
+title: "Data wrangling"
+author: "My name"
+date: "2025-10-13"
+output: html_document
+editor: source
+---
+
+
+
+
+## Part one - Wrangling
+
+This tutorial will allow you to explore `dplyr` functionality based on the previous lecture. Every question can be answered with a combination of `|>` pipes. You should refrain from using temporary variables and statements outside of the range of the tidyverse.  
+
+The first part does not require joins or pivots.
+
+### Import the [data from the website](https://biostat2.uni.lu/practicals/data/judgments.tsv). 
+Assign to the name `judgments` and correct the column types where needed.
+
+```{r}
+# Write your answer here
+```
+
+
+### Use `glimpse()` to identify columns and column types.
+
+What are the dimensions of the data set.
+
+
+### Exercise 1 
+
+You can combine the following tasks into a single statement.
+
+#### Select columns
+Select `gender`, `subject`, `age` and referring to the `STAI` questionnaire.
+
+```{r}
+# Write your answer here
+```
+
+
+#### Select all subjects with `STAI_pre` greater than 65 and `STAI_post` greater than 40
+
+```{r}
+# Write your answer here
+```
+
+
+#### Sort the observations by `STAI_pre` so that the subject with the highest score is on top.
+
+```{r}
+# Write your answer here
+```
+
+#### For better readability, move the subject, STAI_pre and STAI_post columns to the first positions.
+
+```{r}
+# Write your answer here
+```
+
+#### Check if the data set contains duplicated rows
+
+::: {.callout-tip}
+### Tip
+Compare the number of rows in the raw input table with the number of rows 
+in a de-duplicated table containing unique rows only. 
+:::
+
+```{r}
+# Your answer in code here
+```
+
+
+
+### Exercise 2
+
+#### Create a new column called `STAI_pre_category` 
+
+It should contain "low", "normal" and "high" entries depending on the `STAI_pre` values:
+
+  * if `STAI_pre` is less than `25` assign "low",
+  
+  * if `STAI_pre` is over `65` assign "high",
+  
+  * for all other values assign "normal".
+
+#### Arrange the table by `STAI_pre` in a descending manner.
+
+```{r}
+# Write your answer here
+```
+
+
+### Display distinct values in `STAI_pre` and `STAI_pre_category`.
+
+```{r}
+# Write your answer here
+```
+
+
+##### Normalize the values in the REI group
+Divide all entries in the REI questionnaire by 5, the maximal value.
+
+```{r}
+# Write your answer here
+```
+
+

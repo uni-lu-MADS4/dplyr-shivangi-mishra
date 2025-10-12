@@ -1,0 +1,39 @@
+---
+title: "Grouping and summarizing"
+format: html
+editor: source
+date: "2025-10-13"
+output: html_document
+---
+
+
+### Identify the duplicated row
+Identify the duplicated subject.
+
+### Compute basic statistics for all moral dilemma columns. 
+Compute the mean, the median, the standard deviation as well as min and max values.
+Find meaningful short names for the functions such as `med` for  the median.
+
+Assign `judgments_condition_stats` to the results.
+
+```{r}
+# Write your answer here
+```
+
+
+
+### Sort by groups
+
+Find the number of subjects by `age`, `gender` and `condition`, e.g. how many 20 years of age females are in the `stress` group. 
+
+Sort the resulting tibble such that the condition that contains the most populous group is sorted first (i.e. `stress` or `control` appear together). 
+
+```{r}
+# Write your answer here
+```
+
+Ensure that the resulting tibble does not contain groups.
+
+
+
+
