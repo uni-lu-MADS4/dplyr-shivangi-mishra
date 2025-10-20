@@ -1,6 +1,6 @@
 ---
 title: "Data wrangling"
-author: "My name"
+author: "Shivangi Mishra"
 date: "2025-10-13"
 output: html_document
 editor: source
@@ -19,13 +19,34 @@ The first part does not require joins or pivots.
 Assign to the name `judgments` and correct the column types where needed.
 
 ```{r}
-# Write your answer here
+library(tidyverse)
+judge_url <- "https://biostat2.uni.lu/practicals/data/judgments.tsv"
+judgments <- readr::read_tsv(judge_url)
+problems(judgments)
+# https://dataverse.nl/api/access/datafile/11863
+#"https://biostat2.uni.lu/practicals/data/judgments.tsv")
 ```
+```{r}
+spec(judgments)
+
+```
+```{r}
+problems(judgments)
+```
+
 
 
 ### Use `glimpse()` to identify columns and column types.
 
 What are the dimensions of the data set.
+```{r}
+#glimpse(judgments)
+judgments |>
+  group_by(condition, gender) |> 
+  summarise(n = n()) -> n_part
+
+slice_head(n_part, n = 1) 
+```
 
 
 ### Exercise 1 
@@ -36,27 +57,76 @@ You can combine the following tasks into a single statement.
 Select `gender`, `subject`, `age` and referring to the `STAI` questionnaire.
 
 ```{r}
-# Write your answer here
+
+
+#problems()
+
+select(judgments,gender,age,subject,starts_with("STAI"))
+
+#jud2 <- readr::read_delim("https://biostat2.uni.lu/practicals/data/judgments.tsv",
+ #            col_types = cols(start_date = col_date(),
+ #                             end_date = col_date()))
+#
+#jud2
+#problems()
+
+#jud2 <- readr::read_delim("https://biostat2.uni.lu/practicals/data/judgments.tsv",
+ #            col_types = 
+#               cols(start_date = col_date(format = "%d/%m/%Y"),
+#                    end_date = col_date(format =  "%d/%m/%Y"),
+#                    finished = "f",
+#                    condition = "f",
+#                    gender = "f",
+#                    logbook = "c", 
+#                    exclude = "f",
+#                    moral_judgment = "d",
+#                    moral_judgment_disgust = "d",
+#                    moral_judgment_non_disgust = "d",
+#                    .default = col_integer()))
+#
+#jud2
 ```
 
 
 #### Select all subjects with `STAI_pre` greater than 65 and `STAI_post` greater than 40
 
 ```{r}
-# Write your answer here
+select(judgments, subject, starts_with("stai_")) |> 
+   filter(STAI_pre>65 & STAI_post<40)
 ```
+### Find rows with missing data in both mood columns are missing
+```{r}
 
 
+judgments |> 
+  filter(if_all(starts_with("Mood"),is.na)) |> 
+  select(subject,starts_with("Mood"))
+#or
+select(judgments,subject,starts_with("Mood")) |> 
+   filter(if_all(starts_with("Mood"),is.na)) 
+  
+
+ 
+```
+###Retrieve all subjects younger than 20 which are in the stress group. The column for the group is condition.
+```{r}
+judgments |> 
+select(age,subject,condition) |> 
+filter(age<20,condition=="stress")
+```
 #### Sort the observations by `STAI_pre` so that the subject with the highest score is on top.
 
 ```{r}
-# Write your answer here
+judgments |> 
+ arrange(STAI_pre) 
 ```
 
 #### For better readability, move the subject, STAI_pre and STAI_post columns to the first positions.
 
 ```{r}
-# Write your answer here
+judgments |> 
+ arrange(STAI_pre) |> 
+  relocate(subject, STAI_pre)
 ```
 
 #### Check if the data set contains duplicated rows
@@ -68,7 +138,10 @@ in a de-duplicated table containing unique rows only.
 :::
 
 ```{r}
-# Your answer in code here
+judgments |> 
+  distinct()
+
+judgments
 ```
 
 
